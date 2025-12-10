@@ -1,2 +1,2 @@
-rootProject.name = "TA_Automation"
+rootProject.name = "ta-automation"
 
