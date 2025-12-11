@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.qa"
-version = "0.1.0"
+version = "0.1.1"
 
 java {
     withSourcesJar()
@@ -29,10 +29,10 @@ publishing {
 
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/YOUR_USERNAME/YOUR_REPO")
+            url = uri(project.property("githubRepoUrl") as String)
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = project.property("githubUsername") as String
+                password = project.property("githubPassword") as String
             }
         }
     }
