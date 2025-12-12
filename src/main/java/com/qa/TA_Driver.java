@@ -1,6 +1,5 @@
 package com.qa;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -8,36 +7,43 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TA_Driver {
 
-    public String title;
+    // Keep it simple for sequential execution
     public WebDriver driver;
 
-    public WebDriver driverInit(String browser){
+    public WebDriver driverInit(String browser) {
 
-        if(browser=="chrome"){
-             driver = new ChromeDriver();
-        }
-        if(browser=="firefox"){
+        // FIX: Use equalsIgnoreCase() for safe string comparison
+        if ("chrome".equalsIgnoreCase(browser)) {
+            driver = new ChromeDriver();
+        } else if ("firefox".equalsIgnoreCase(browser)) { // Use else if for better logic
             driver = new FirefoxDriver();
-        }
-        if(browser=="edge"){
+        } else if ("edge".equalsIgnoreCase(browser)) {
             driver = new EdgeDriver();
+        } else {
+            // Good practice: Throw an error if browser is unknown
+            throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
 
-        return  driver;
-
+        return driver;
     }
 
-    public void driverQuit(){
-        if (driver != null) {
-            driver.quit();
+    // Methods now access the instance variable 'this.driver'
+    public void driverQuit() {
+        if (this.driver != null) {
+            this.driver.quit();
         }
     }
-    public void goToURL(String url){
-        driver.get(url);
+    public void goToURL(String url) {
+        // We assume driver is initialized before this is called
+        this.driver.get(url);
     }
-    public void driverClose(){
-        if (driver != null) {
-            driver.close();
+    public void driverClose() {
+        if (this.driver != null) {
+            this.driver.close();
         }
+    }
+    // You may want to add a getter if other classes need the driver:
+    public WebDriver getDriver() {
+        return this.driver;
     }
 }
